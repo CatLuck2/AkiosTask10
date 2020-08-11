@@ -19,8 +19,8 @@ struct Prefecture {
         return prefectureDatas[prefectureNum]
     }
     //都道府県の数を返す
-    func getPrefectureCount() -> Int {
-        return prefectureDatas.count
+    var prefectureCount:Int {
+        prefectureDatas.count
     }
 }
 
@@ -40,32 +40,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return prefecture.getPrefectureCount()
+        prefecture.prefectureCount
     }
      
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
-        //右、左のテキスト
-        guard let prefectureLabel = cell.prefectureLabel else {
-            return cell
-        }
-        guard let prefectureDetailLabel = cell.prefectureDetailLabel else {
-            return cell
-        }
-        prefectureLabel.text = prefecture.getPrefectureValue(prefectureNum: indexPath.row)
-        let prefectureTextNum = indexPath.row + 1
-        prefectureDetailLabel.text = "\(prefectureTextNum)番目の都道府県です"
-        
-        //背景色の設定
-        let prefectureColorNum = (indexPath.row + 1) % 3
-        switch prefectureColorNum {
-        case 1:cell.backgroundColor = .systemRed
-        case 2:cell.backgroundColor = .systemGreen
-        case 0:cell.backgroundColor = .systemBlue
-        default:break
-        }
+        cell.setValueToLabel(name: prefecture.getPrefectureValue(prefectureNum: indexPath.row), prefectureNum: indexPath.row + 1)
         
         return cell
     }

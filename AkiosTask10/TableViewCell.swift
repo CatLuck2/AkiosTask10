@@ -24,4 +24,11 @@ class TableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setValueToLabel(name:String, prefectureNum:Int) {
+        prefectureLabel.text = name
+        prefectureDetailLabel.text = "\(prefectureNum)番目の都道府県です"
+        let colorArray:[UIColor] = [.systemBlue, .systemRed, .systemGreen]
+        self.backgroundColor = colorArray[prefectureNum % 3]
+    }
+    
 }
